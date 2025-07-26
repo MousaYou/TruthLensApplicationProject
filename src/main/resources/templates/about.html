@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - TruthLens</title>
+    
+    <!-- Bootstrap CSS -->
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" th:href="@{/}">
+                <i class="fas fa-search-plus me-2"></i>TruthLens
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/}">
+                            <i class="fas fa-home me-1"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" th:href="@{/about}">
+                            <i class="fas fa-info-circle me-1"></i>About
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="text-center mb-5">
+                    <i class="fas fa-search-plus fa-4x text-primary mb-3"></i>
+                    <h1 class="display-4 fw-bold">About TruthLens</h1>
+                    <p class="lead text-muted">
+                        Empowering digital literacy through AI-powered misinformation detection
+                    </p>
+                </div>
+
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h3 class="card-title">
+                            <i class="fas fa-bullseye me-2 text-primary"></i>Our Mission
+                        </h3>
+                        <p class="card-text">
+                            TruthLens is designed to combat the spread of misinformation in the digital age. 
+                            Our AI-powered tool helps users critically evaluate social media content, news headlines, 
+                            and online posts by providing real-time credibility analysis and bias detection.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h3 class="card-title">
+                            <i class="fas fa-cogs me-2 text-success"></i>How It Works
+                        </h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-upload me-2"></i>1. Submit Content</h5>
+                                <p>Paste any text content you want to analyze - tweets, posts, headlines, or articles.</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-robot me-2"></i>2. AI Analysis</h5>
+                                <p>Our AI models analyze the content for bias, misinformation patterns, and credibility indicators.</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-chart-line me-2"></i>3. Get Results</h5>
+                                <p>Receive a detailed credibility score with explanations and red flags.</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-brain me-2"></i>4. Learn & Improve</h5>
+                                <p>Develop critical thinking skills and digital literacy through detailed analysis.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h3 class="card-title">
+                            <i class="fas fa-star me-2 text-warning"></i>Key Features
+                        </h3>
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <strong>Real-time Analysis:</strong> Instant credibility scoring and bias detection
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <strong>AI-Powered:</strong> Advanced language models for comprehensive content analysis
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <strong>Educational:</strong> Detailed explanations to improve digital literacy
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <strong>User-Friendly:</strong> Simple interface accessible to everyone
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <strong>Transparent:</strong> Clear explanations of analysis methodology
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h3 class="card-title">
+                            <i class="fas fa-exclamation-triangle me-2 text-danger"></i>Important Disclaimers
+                        </h3>
+                        <div class="alert alert-warning">
+                            <h6><i class="fas fa-info-circle me-2"></i>AI Limitations</h6>
+                            <p class="mb-0">
+                                While our AI models are sophisticated, they are not perfect. Always use critical thinking 
+                                and verify information from multiple reliable sources. This tool is designed to assist, 
+                                not replace, human judgment.
+                            </p>
+                        </div>
+                        <div class="alert alert-info">
+                            <h6><i class="fas fa-balance-scale me-2"></i>Ethical Considerations</h6>
+                            <p class="mb-0">
+                                Labeling content as "misinformation" carries significant responsibility. Our analysis 
+                                should be considered as one perspective in your fact-checking process, not the final word.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h3 class="card-title">
+                            <i class="fas fa-graduation-cap me-2 text-info"></i>Educational Goals
+                        </h3>
+                        <p>This project emphasizes 21st-century skills including:</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-arrow-right text-primary me-2"></i>Critical thinking & digital literacy</li>
+                                    <li><i class="fas fa-arrow-right text-primary me-2"></i>Problem-solving in ambiguous environments</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-arrow-right text-primary me-2"></i>Ethical use of AI technology</li>
+                                    <li><i class="fas fa-arrow-right text-primary me-2"></i>Collaborative and reflective thinking</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <a th:href="@{/}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-arrow-left me-2"></i>Start Analyzing Content
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-search-plus me-2"></i>TruthLens</h5>
+                    <p class="mb-0">AI-Powered Misinformation Detection for Social Media</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">
+                        <small>
+                            <i class="fas fa-shield-alt me-1"></i>
+                            Promoting digital literacy and critical thinking
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    
+    <!-- Custom JS -->
+    <script th:src="@{/js/app.js}"></script>
+</body>
+</html>
+

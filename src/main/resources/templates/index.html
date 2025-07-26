@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TruthLens - AI-Powered Misinformation Detection</title>
+    
+    <!-- Bootstrap CSS -->
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" th:href="@{/}">
+                <i class="fas fa-search-plus me-2"></i>TruthLens
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" th:href="@{/}">
+                            <i class="fas fa-home me-1"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/about}">
+                            <i class="fas fa-info-circle me-1"></i>About
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section bg-gradient-primary text-white py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-3">
+                        <i class="fas fa-shield-alt me-3"></i>TruthLens
+                    </h1>
+                    <p class="lead mb-4">
+                        AI-powered misinformation detection tool that helps you evaluate the credibility 
+                        of social media content, news headlines, and online posts.
+                    </p>
+                    <div class="d-flex gap-3">
+                        <span class="badge bg-light text-dark px-3 py-2">
+                            <i class="fas fa-robot me-1"></i>AI-Powered
+                        </span>
+                        <span class="badge bg-light text-dark px-3 py-2">
+                            <i class="fas fa-chart-line me-1"></i>Real-time Analysis
+                        </span>
+                        <span class="badge bg-light text-dark px-3 py-2">
+                            <i class="fas fa-users me-1"></i>Digital Literacy
+                        </span>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center">
+                    <i class="fas fa-search-plus hero-icon"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <!-- Error Messages -->
+        <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            <span th:text="${error}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+
+        <div class="row">
+            <!-- Analysis Form -->
+            <div class="col-lg-6 mb-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="card-title mb-0">
+                            <i class="fas fa-microscope me-2"></i>Analyze Content
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/analyze}" th:object="${analysisRequest}" method="post">
+                            <div class="mb-3">
+                                <label for="content" class="form-label fw-semibold">
+                                    <i class="fas fa-edit me-1"></i>Content to Analyze
+                                </label>
+                                <textarea 
+                                    class="form-control" 
+                                    id="content" 
+                                    th:field="*{content}" 
+                                    rows="6" 
+                                    placeholder="Paste a tweet, news headline, social media post, or any text content you want to fact-check..."
+                                    required></textarea>
+                                <div class="form-text">
+                                    <i class="fas fa-info-circle me-1"></i>
+                                    Maximum 1000 characters. The AI will analyze for bias, misinformation, and credibility.
+                                </div>
+                                <div th:if="${#fields.hasErrors('content')}" class="text-danger mt-1">
+                                    <small th:errors="*{content}"></small>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="source" class="form-label fw-semibold">
+                                    <i class="fas fa-link me-1"></i>Source (Optional)
+                                </label>
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    id="source" 
+                                    th:field="*{source}" 
+                                    placeholder="e.g., Twitter, Facebook, News Website, etc.">
+                                <div class="form-text">
+                                    <i class="fas fa-info-circle me-1"></i>
+                                    Specify where you found this content for better context.
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-lg w-100" id="analyzeBtn">
+                                <i class="fas fa-search me-2"></i>Analyze Content
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analysis Results -->
+            <div class="col-lg-6">
+                <div th:if="${analysisResult}" class="card shadow-sm h-100">
+                    <div class="card-header" th:classappend="'bg-' + ${analysisResult.credibilityColor} + ' text-white'">
+                        <h4 class="card-title mb-0">
+                            <i class="fas fa-chart-bar me-2"></i>Analysis Results
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- Credibility Score -->
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="fw-semibold">Credibility Score</span>
+                                <span class="badge" th:classappend="'bg-' + ${analysisResult.credibilityColor}" 
+                                      th:text="${analysisResult.credibilityLevel}"></span>
+                            </div>
+                            <div class="progress mb-2" style="height: 10px;">
+                                <div class="progress-bar" 
+                                     th:classappend="'bg-' + ${analysisResult.credibilityColor}"
+                                     th:style="'width: ' + ${analysisResult.credibilityScore * 100} + '%'"></div>
+                            </div>
+                            <small class="text-muted" th:text="${#numbers.formatDecimal(analysisResult.credibilityScore * 100, 1, 1)} + '%'"></small>
+                        </div>
+
+                        <!-- Overall Assessment -->
+                        <div class="mb-3">
+                            <h6 class="fw-semibold">
+                                <i class="fas fa-clipboard-check me-1"></i>Overall Assessment
+                            </h6>
+                            <p class="text-muted mb-0" th:text="${analysisResult.overallAssessment}"></p>
+                        </div>
+
+                        <!-- Red Flags -->
+                        <div class="mb-3" th:if="${analysisResult.redFlags != null and !analysisResult.redFlags.isEmpty()}">
+                            <h6 class="fw-semibold text-danger">
+                                <i class="fas fa-exclamation-triangle me-1"></i>Red Flags
+                            </h6>
+                            <ul class="list-unstyled">
+                                <li th:each="flag : ${analysisResult.redFlags}" class="mb-1">
+                                    <i class="fas fa-times-circle text-danger me-2"></i>
+                                    <span th:text="${flag}"></span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Positive Indicators -->
+                        <div class="mb-3" th:if="${analysisResult.positiveIndicators != null and !analysisResult.positiveIndicators.isEmpty()}">
+                            <h6 class="fw-semibold text-success">
+                                <i class="fas fa-check-circle me-1"></i>Positive Indicators
+                            </h6>
+                            <ul class="list-unstyled">
+                                <li th:each="indicator : ${analysisResult.positiveIndicators}" class="mb-1">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    <span th:text="${indicator}"></span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Bias Analysis -->
+                        <div class="mb-3" th:if="${analysisResult.biasAnalysis}">
+                            <h6 class="fw-semibold">
+                                <i class="fas fa-balance-scale me-1"></i>Bias Analysis
+                            </h6>
+                            <p class="text-muted mb-0" th:text="${analysisResult.biasAnalysis}"></p>
+                        </div>
+
+                        <!-- Fact Check Summary -->
+                        <div class="mb-3" th:if="${analysisResult.factCheckSummary}">
+                            <h6 class="fw-semibold">
+                                <i class="fas fa-search me-1"></i>Fact Check Summary
+                            </h6>
+                            <p class="text-muted mb-0" th:text="${analysisResult.factCheckSummary}"></p>
+                        </div>
+
+                        <!-- Analysis Metadata -->
+                        <div class="border-top pt-3 mt-3">
+                            <small class="text-muted">
+                                <i class="fas fa-robot me-1"></i>
+                                Analyzed by <span th:text="${analysisResult.aiModel}"></span> at 
+                                <span th:text="${#temporals.format(analysisResult.analysisTimestamp, 'MMM dd, yyyy HH:mm')}"></span>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Placeholder when no results -->
+                <div th:unless="${analysisResult}" class="card shadow-sm h-100">
+                    <div class="card-body text-center py-5">
+                        <i class="fas fa-chart-bar fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">Analysis Results</h5>
+                        <p class="text-muted">Submit content for analysis to see detailed results here.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <h3 class="text-center mb-4">
+                    <i class="fas fa-star me-2"></i>Key Features
+                </h3>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="fas fa-brain fa-2x text-primary mb-3"></i>
+                        <h5>AI-Powered Analysis</h5>
+                        <p class="text-muted">Advanced AI models analyze content for misinformation patterns and bias indicators.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="fas fa-tachometer-alt fa-2x text-success mb-3"></i>
+                        <h5>Real-time Results</h5>
+                        <p class="text-muted">Get instant credibility scores and detailed analysis of any text content.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="fas fa-graduation-cap fa-2x text-warning mb-3"></i>
+                        <h5>Digital Literacy</h5>
+                        <p class="text-muted">Learn to identify misinformation patterns and develop critical thinking skills.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-search-plus me-2"></i>TruthLens</h5>
+                    <p class="mb-0">AI-Powered Misinformation Detection for Social Media</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">
+                        <small>
+                            <i class="fas fa-shield-alt me-1"></i>
+                            Promoting digital literacy and critical thinking
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    
+    <!-- Custom JS -->
+    <script th:src="@{/js/app.js}"></script>
+</body>
+</html>
+
