@@ -98,12 +98,14 @@ export DEEPSEEK_API_KEY="your-deepseek-api-key-here"
 # Windows
 set DEEPSEEK_API_KEY=your-deepseek-api-key-here
 ```
+ 
 
 Or modify `src/main/resources/application.properties`:
 
 ```properties
 deepseek.api.key=your-deepseek-api-key-here
 ```
+## to get the key , go to https://openrouter.ai/settings/keys
 
 ### 4. Build the Application
 
@@ -235,7 +237,7 @@ spring.thymeleaf.suffix=.html
    - Check port 8080 availability
 
 2. **AI analysis not working**
-   - Verify DeepSeek API key is set correctly
+   - Verify openRouter API key is set correctly
    - Check internet connectivity
    - Ensure API key has sufficient credits
 
@@ -316,7 +318,7 @@ To contribute to this project:
 
 ## License
 
-This project is developed for educational purposes. Please respect OpenAI's usage policies when using their API.
+This project is developed for educational purposes. Please respect Deepseek's usage policies when using their API.
 
 ## Support
 
